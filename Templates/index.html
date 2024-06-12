@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII ART WEB</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        .textbox {
+            margin-bottom: 20px;
+        }
+        .selectbox {
+            margin-bottom: 20px;
+        }
+        .displaybox {
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 100px;
+            width: 300px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ASCII ART WEB</h1>
+        <form action="/asciiart" method="post">
+            <div class="textbox">
+                <input type="text" id="inputText" name="inputText" placeholder="Enter text" value="">
+            </div>
+            <div class="selectbox">
+                <select id="fontSelect" name="fontSelect">
+                    <option value="standard" {{if eq .Font "standard"}}selected{{end}}>Standard</option>
+                    <option value="shadow" {{if eq .Font "shadow"}}selected{{end}}>Shadow</option>
+                    <option value="thinkertoy" {{if eq .Font "thinkertoy"}}selected{{end}}>Thinkertoy</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit">Generate</button>
+            </div>
+        </form>
+        <div class="displaybox" id="displayBox"></div>
+    </div>
+</body>
+</html>
