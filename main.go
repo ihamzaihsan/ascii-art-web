@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	// "fmt"
 	"log"
 	"net/http"
 )
@@ -10,19 +10,20 @@ import (
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
-		return
+		log.Fatal("Page is not found: ", r.Method)
 	}
 	http.ServeFile(w, r, "templates/index.html")
 }
 
-func handleRequest(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
-		// Perform the action you want here
-		fmt.Println("Button clicked, running Go function!")
-		// You can send a response back to the client if needed
-		w.Write([]byte("Go function executed!"))
-	}
-}
+//
+// func handleRequest(w http.ResponseWriter, r *http.Request) {
+// 	if r.Method == "POST" {
+// 		// Perform the action you want here
+// 		fmt.Println("Button clicked, running Go function!")
+// 		// You can send a response back to the client if needed
+// 		w.Write([]byte("Go function executed!"))
+// 	}
+// }
 
 // Handler for the /templates path to serve static files
 func templatesHandler(w http.ResponseWriter, r *http.Request) {
@@ -33,7 +34,6 @@ func templatesHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	// Serve the root URL with the rootHandler
 	http.HandleFunc("/", rootHandler)
-	http.HandleFunc("/run", handleRequest)
 	// Serve static files from the /templates directory
 	http.HandleFunc("/templates/", templatesHandler)
 
@@ -43,3 +43,7 @@ func main() {
 		log.Fatalf("Could not start server: %s\n", err.Error())
 	}
 }
+
+// func hello() {
+// 	fmt.Println("hello world")
+// }
