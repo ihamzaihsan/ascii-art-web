@@ -1,18 +1,21 @@
 package main
 
 import (
+	"ascii/src/server"
 	"fmt"
 	"log"
 	"net/http"
 )
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "Templates/index.html")
-	})
+	fmt.Print("Server running on http://localhost:8080 \nTo stop the server press Ctrl+C")
 
-	fmt.Printf("Starting server at port 8080\n")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
-		log.Fatal(err)
-	}
+	// Register the request handlers
+	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./assets/"))))
+	http.HandleFunc("/", server.MainHandler)
+	http.HandleFunc("/ascii-art", server.ResultHandler)
+
+	//Start the http server
+	log.Fatal(http.ListenAndServe(":8080", nil))
+
 }

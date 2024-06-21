@@ -3,53 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASCII ART WEB</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            text-align: center;
-        }
-        .textbox {
-            margin-bottom: 20px;
-        }
-        .selectbox {
-            margin-bottom: 20px;
-        }
-        .displaybox {
-            border: 1px solid #ccc;
-            padding: 10px;
-            min-height: 100px;
-            width: 300px;
-            white-space: pre-wrap;
-        }
-    </style>
+    <link rel="stylesheet" href="http://localhost:8080/assets/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="icon" href="http://localhost:8080/assets/favicon.png" type="image/icon type">
+    <title>Ascii Art</title>
 </head>
 <body>
-    <div class="container">
-        <h1>ASCII ART WEB</h1>
-        <form action="/asciiart" method="post">
-            <div class="textbox">
-                <input type="text" id="inputText" name="inputText" placeholder="Enter text" value="">
-            </div>
-            <div class="selectbox">
-                <select id="fontSelect" name="fontSelect">
-                    <option value="standard" {{if eq .Font "standard"}}selected{{end}}>Standard</option>
-                    <option value="shadow" {{if eq .Font "shadow"}}selected{{end}}>Shadow</option>
-                    <option value="thinkertoy" {{if eq .Font "thinkertoy"}}selected{{end}}>Thinkertoy</option>
-                </select>
-            </div>
-            <div>
-                <button type="submit">Generate</button>
-            </div>
-        </form>
-        <div class="displaybox" id="displayBox"></div>
+    <div class="Shinycorner"></div>
+    <div class:="smallbluebox"></div>
+    <h1> Ascii Art Generator </h1>
+    <div class="YourText">Your Text</div>
+    <div class="YourChoice">Your Chosen Art Style</div>
+<form action="/ascii-art" method="post">
+    <textarea class="TextBox" name="input-text" placeholder="write your text here..."></textarea>
+    <div class="ArtStyleOptions">
+        <a href="#" type="input" class="ArtStyleLink" id="standard">Standard</a>
+        <a href="#" class="ArtStyleLink" id="shadow">Shadow</a>
+        <a href="#" class="ArtStyleLink" id="thinkertoy">Thinkertoy</a>
     </div>
+    <input type="hidden" name="banner" id="artStyleInput">
+    <button type="ascii-art" class="GenerateButton margin-left-32">Magic time</button>
+</form>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const artStyleLinks = document.querySelectorAll('.ArtStyleLink');
+    
+        artStyleLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+    
+                // Remove 'selected' class from all links
+                artStyleLinks.forEach(link => link.classList.remove('selected'));
+    
+                // Add 'selected' class to the clicked link
+                this.classList.add('selected');
+    
+                // Update hidden input value
+                artStyleInput.value = this.id;
+            });
+        });
+    });
+    </script>
+<div class="DarkGenerationBox"></div>
 </body>
 </html>
