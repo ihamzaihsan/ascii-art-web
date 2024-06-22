@@ -30,9 +30,9 @@ func AsciiArt(input, filename string) (string, error) {
     result := "\n"
 
     args := strings.Split(input, "\n")
-    for , word := range args {
+    for _, word := range args {
         for i := 0; i < 8; i++ {
-            for , letter := range word {
+            for _, letter := range word {
                 asciiLine, err := GetAsciiLine(banner, 1+int(letter-' ')*9+i)
                 if err != nil { 
                     return "", err

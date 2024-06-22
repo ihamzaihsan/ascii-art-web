@@ -1,32 +1,17 @@
 package server
 
 import (
-	// "fmt"
 	"log"
 	"net/http"
-	"src/asciiart/asciiart"
+	// "fmt"
+	"asciiart/src/server"
 )
-
-// Handler for the root URL
-func rootHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
-		log.Fatal("Page is not found: ", r.Method)
-	}
-	http.ServeFile(w, r, "templates/index.html")
-}
-
-// Handler for the /templates path to serve static files
-func templatesHandler(w http.ResponseWriter, r *http.Request) {
-	fs := http.FileServer(http.Dir("templates"))
-	http.StripPrefix("/templates/", fs).ServeHTTP(w, r)
-}
 
 func main() {
 	// Serve the root URL with the rootHandler
-	http.HandleFunc("/", rootHandler)
+	http.HandleFunc("/", server.RootHandler)
 	// Serve static files from the /templates directory
-	http.HandleFunc("/templates/", templatesHandler)
+	http.HandleFunc("/templates/", server.TemplatesHandler)
 
 	// Start the server on port 8080
 	log.Println("Starting server on :8080")
@@ -34,7 +19,3 @@ func main() {
 		log.Fatalf("Could not start server: %s\n", err.Error())
 	}
 }
-
-// func hello() {
-// 	fmt.Println("hello world")
-// }

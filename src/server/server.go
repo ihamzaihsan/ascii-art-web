@@ -6,7 +6,7 @@ import (
 )
 
 // Handler for the root URL
-func rootHandler(w http.ResponseWriter, r *http.Request) {
+func RootHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
 		log.Fatal("Page is not found: ", r.Method)
@@ -15,23 +15,11 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // Handler for the /templates path to serve static files
-func templatesHandler(w http.ResponseWriter, r *http.Request) {
+func TemplatesHandler(w http.ResponseWriter, r *http.Request) {
 	fs := http.FileServer(http.Dir("templates"))
 	http.StripPrefix("/templates/", fs).ServeHTTP(w, r)
 }
 
-func main() {
-	// Serve the root URL with the rootHandler
-	http.HandleFunc("/", rootHandler)
-	// Serve static files from the /templates directory
-	http.HandleFunc("/templates/", templatesHandler)
-
-	// Start the server on port 8080
-	log.Println("Starting server on :8080")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
-		log.Fatalf("Could not start server: %s\n", err.Error())
-	}
-}
 
 // func hello() {
 // 	fmt.Println("hello world")
