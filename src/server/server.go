@@ -1,10 +1,8 @@
 package server
 
 import (
-	// "fmt"
 	"log"
 	"net/http"
-	"src/asciiart/asciiart"
 )
 
 // Handler for the root URL

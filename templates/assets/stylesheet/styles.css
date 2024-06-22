@@ -130,17 +130,6 @@ transition: color 0.3s;
   animation: slow-motion-shinycorner 5s infinite; /* 5s duration, infinite loop */
   transition: background 0.3s ease-in-out; /* Smooth background transition */
 }
-  
-.smallbluebox {
-    width: 22px;
-    height: 22px;
-    flex-shrink: 0;
-    left: 1209px;
-    top: 190px;
-    background: #1CBCB6;
-    position: absolute;
-    z-index: -2;
-}
 
 h1 {
     color: #f4f4f4;
