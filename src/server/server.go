@@ -27,19 +27,21 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 		err := errorpage{httpcode: "404", message: "Page does not exist"}
 		w.WriteHeader(http.StatusNotFound)
 		errorhandler(w, r, &err)
-		log.Fatal("Page is not found: ", r.Method)
+		http.ServeFile(w, r, "templates/error.html")
+		log.Print("error in request ", r.Method)
 	}
+
 	if r.Method != "GET" {
 		err := errorpage{httpcode: "405", message: "Method is not allowed"}
 		w.WriteHeader(http.StatusNotFound)
 		errorhandler(w, r, &err)
-		log.Fatal("error in request ", r.Method)
+		log.Print("error in request ", r.Method)
 	}
 	http.ServeFile(w, r, "templates/index.html")
-}
+	}
 
 // Handler for the error
-func errorhandler (w http.ResponseWriter, r *http.Request, err *errorpage) {
+func errorhandler(w http.ResponseWriter, r *http.Request, err *errorpage) {
 errorp := template.Must(template.ParseFiles("templates/error.html"))
 errorp.Execute(w, err)
 }
