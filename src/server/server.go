@@ -26,8 +26,14 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		err := errorpage{httpcode: "404", message: "Page does not exist"}
 		w.WriteHeader(http.StatusNotFound)
-		log.Fatal("Page is not found: ", r.Method)
 		errorhandler(w, r, &err)
+		log.Fatal("Page is not found: ", r.Method)
+	}
+	if r.Method != "GET" {
+		err := errorpage{httpcode: "405", message: "Method is not allowed"}
+		w.WriteHeader(http.StatusNotFound)
+		errorhandler(w, r, &err)
+		log.Fatal("error in request ", r.Method)
 	}
 	http.ServeFile(w, r, "templates/index.html")
 }
