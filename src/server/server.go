@@ -93,7 +93,13 @@ func ResultHandler(w http.ResponseWriter, r *http.Request) {
 
 	}
 	//Validation for asciiart functions
-	ascii, err := asciiart.AsciiArt(input, banner) 
+	ascii, err := asciiart.AsciiArt(input, banner)
+	if err != nil {
+		err := ErrorPageData{Code: "500", ErrorMsg: "INTERNAL SERVER ERROR"}
+		w.WriteHeader(http.StatusInternalServerError)
+		errHandler(w, r, &err)
+		return
+	}
 	resultTemp, err := template.ParseFiles("templates/ascii-art.html")
 	if err != nil {
 		err := ErrorPageData{Code: "500", ErrorMsg: "INTERNAL SERVER ERROR"}
