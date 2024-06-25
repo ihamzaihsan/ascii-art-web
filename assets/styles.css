@@ -110,20 +110,6 @@ transition: color 0.3s;
   left: 32
 }
 
-.BackButton {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-}
-
-.BackButton:hover {
-  background-color: #0056b3;
-}
-
 @keyframes slow-motion-shinycorner {
   0% {
       transform: scale(1);
@@ -140,6 +126,26 @@ transition: color 0.3s;
   100% {
       transform: scale(1);
       background: #1CCFC9;
+      left: 1541px;
+      top: -106px;
+  }
+}
+@keyframes slow-motion-red {
+  0% {
+      transform: scale(1);
+      background: #c34646;
+      left: 1541px;
+      top: -106px;
+  }
+  50% {
+      transform: scale(1.7); /* Slightly increase size */
+      background: #c34646; /* Slight color change */
+      left: 1541px;
+      top: -106px;
+  }
+  100% {
+      transform: scale(1);
+      background: #c34646;
       left: 1541px;
       top: -106px;
   }
@@ -161,16 +167,19 @@ transition: color 0.3s;
   animation: slow-motion-shinycorner 5s infinite; /* 5s duration, infinite loop */
   transition: background 0.3s ease-in-out; /* Smooth background transition */
 }
-  
-.smallbluebox {
-    width: 22px;
-    height: 22px;
-    flex-shrink: 0;
-    left: 1209px;
-    top: 190px;
-    background: #1cbcb7;
-    position: absolute;
-    z-index: -2;
+.errorred {
+  width: 304px;
+  height: 304px;
+  flex-shrink: 0;
+  border-radius: 304px;
+  background: #c34646;
+  filter: blur(120.05px);
+  position: sticky;
+  z-index: -1;
+  left: 1541px;
+  top: -106px;
+  animation: slow-motion-red 5s infinite; /* 5s duration, infinite loop */
+  transition: background 0.3s ease-in-out; /* Smooth background transition */
 }
 
 h1 {
@@ -183,6 +192,17 @@ h1 {
     left: 32px;
     top: 1px;
     z-index: 1;
+}
+h2 {
+  color: #f4f4f4;
+  font-size: 60px;
+  font-family: Poppins;
+  font-weight: 700;
+  line-height: 82.70px;
+  position: absolute;
+  left: 32px;
+  top: 150px;
+  z-index: 1;
 }
 
 .text-box {
@@ -231,6 +251,30 @@ h1 {
   backdrop-filter: blur(10.199999809265137px);
   z-index: 4;
   margin-top: 50px;
+}
+.back-button-container {
+  display: flex;
+  width: 1076px;
+  height: 64px;
+  left: 32px;
+  padding: 20px 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  margin-top: 24px;
+  background: #1BBAB4;
+  font-family: Poppins;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 82.705px;
+  text-decoration:none
+}
+.back-button-container:hover {
+  background-color: #f4f4f4;
+  color:#090E0E;
+  
 }
 
 @media (max-width: 768px) {
