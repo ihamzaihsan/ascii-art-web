@@ -1,0 +1,59 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ascii Art Result</title>
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Ascii Art Generator</h1>
+        </header>
+        <section>
+            <div class="result">
+                <label for="ascii-result">Your ASCII Art:</label>
+                <textarea id="ascii-result" rows="10" readonly>{{.Result}}</textarea>
+            </div>
+        </section>
+    </div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://localhost:8080/assets/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="icon" href="http://localhost:8080/assets/favicon.png" type="image/icon type">
+    <title>Ascii Art</title>
+</head>
+<body>
+    <div class="Shinycorner"></div>
+    <div class="smallbluebox"></div>
+    <h1> Ascii Art Generator </h1>
+    <!-- Back Button -->
+<div class="back-button-container">
+    <a href="/" class="BackButton">Back to Home</a>
+</div>
+    <div class="YourText">Your Text</div>
+    <div class="YourChoice">Your Chosen Art Style</div>
+    <form action="/ascii-art" method="post">
+        <textarea class="TextBox" name="input-text" placeholder="write your text here..."></textarea>
+        <div class="ArtStyleOptions">
+            <a href="#" type="input" class="ArtStyleLink" id="standard">Standard</a>
+            <a href="#" class="ArtStyleLink" id="shadow">Shadow</a>
+            <a href="#" class="ArtStyleLink" id="thinkertoy">Thinkertoy</a>
+        </div>
+        <input type="hidden" name="banner" id="artStyleInput">
+        <button type="submit" class="GenerateButton margin-left-32">Magic time</button>
+    </form>
+    <!-- Output Text Box -->
+    <div class="output-section">
+        <label for="ascii-result">ASCII Art Output:</label>
+        <textarea id="ascii-result" class="OutputTextBox" name="ascii-output" rows="10" readonly>{{.Result}}</textarea>
+    </div>
+</body>
+</html>

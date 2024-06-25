@@ -93,6 +93,37 @@ transition: color 0.3s;
   z-index: 10;
 }
 
+.OutputTextBox {
+  display: flex;
+  width: 1076px;
+  height: 108px;
+  padding: 16;
+  margin-top: 100px;
+  padding-top: 16px;
+  padding-left: 16px;
+  margin-left: 32px;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 15px;
+  border: 1.013px solid #f4f4f4;;
+  background: #f4f4f4;;
+  left: 32
+}
+
+.BackButton {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.BackButton:hover {
+  background-color: #0056b3;
+}
+
 @keyframes slow-motion-shinycorner {
   0% {
       transform: scale(1);
@@ -129,6 +160,17 @@ transition: color 0.3s;
   top: -106px;
   animation: slow-motion-shinycorner 5s infinite; /* 5s duration, infinite loop */
   transition: background 0.3s ease-in-out; /* Smooth background transition */
+}
+  
+.smallbluebox {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    left: 1209px;
+    top: 190px;
+    background: #1cbcb7;
+    position: absolute;
+    z-index: -2;
 }
 
 h1 {
