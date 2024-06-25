@@ -68,6 +68,12 @@ func ResultHandler(w http.ResponseWriter, r *http.Request) {
 	// Validation for the input
 	input := r.PostFormValue("input-text")
 	inputValidation := strings.ReplaceAll(input, "\r\n", "")
+	if input == "" {
+		err := ErrorPageData{Code: "400", ErrorMsg: "INVALID INPUT"}
+		w.WriteHeader(http.StatusBadRequest)
+		errHandler(w, r, &err)
+		return
+	}
 
 	for _, letter := range inputValidation {
 		if letter < 32 || letter > 126 {
@@ -80,7 +86,7 @@ func ResultHandler(w http.ResponseWriter, r *http.Request) {
 	// Validation for the banner
 	banner := r.PostFormValue("banner")
 	if banner != "standard" && banner != "shadow" && banner != "thinkertoy" {
-		err := ErrorPageData{Code: "404", ErrorMsg: "BANNER NOT FOUND"}
+		err := ErrorPageData{Code: "400", ErrorMsg: "BANNER NOT FOUND"}
 		w.WriteHeader(http.StatusNotFound)
 		errHandler(w, r, &err)
 		return
@@ -88,14 +94,13 @@ func ResultHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	//Validation for asciiart functions
 	ascii, err := asciiart.AsciiArt(input, banner) 
+	resultTemp, err := template.ParseFiles("templates/ascii-art.html")
 	if err != nil {
 		err := ErrorPageData{Code: "500", ErrorMsg: "INTERNAL SERVER ERROR"}
 		w.WriteHeader(http.StatusInternalServerError)
 		errHandler(w, r, &err)
 		return
 	}
-
-	resultTemp := template.Must(template.ParseFiles("templates/ascii-art.html"))
 
 	output := ResultPageData{Input: input, Banner: banner, Result: ascii}
 
