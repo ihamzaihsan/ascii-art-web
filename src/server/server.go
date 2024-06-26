@@ -68,7 +68,7 @@ func ResultHandler(w http.ResponseWriter, r *http.Request) {
 	// Validation for the input
 	input := r.PostFormValue("input-text")
 	inputValidation := strings.ReplaceAll(input, "\r\n", "")
-	if input == "" {
+	if inputValidation == "" {
 		err := ErrorPageData{Code: "400", ErrorMsg: "INVALID INPUT"}
 		w.WriteHeader(http.StatusBadRequest)
 		errHandler(w, r, &err)
