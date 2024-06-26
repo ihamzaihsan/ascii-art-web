@@ -74,12 +74,12 @@ func ResultHandler(w http.ResponseWriter, r *http.Request) {
 		errHandler(w, r, &err)
 		return
 	}
-	if strings.TrimSpace(inputValidation) == "" {
+	/*if strings.TrimSpace(inputValidation) == "" {
 		err := ErrorPageData{Code: "400", ErrorMsg: "INVALID INPUT"}
 		w.WriteHeader(http.StatusBadRequest)
 		errHandler(w, r, &err)
 		return
-	}
+	}*/
 
 	for _, letter := range inputValidation {
 		if letter < 32 || letter > 126 {
