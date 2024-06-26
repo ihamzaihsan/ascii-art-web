@@ -97,7 +97,7 @@ transition: color 0.3s;
 .OutputTextBox {
   display: flex;
   width: 1076px;
-  height: 800px;
+  height: 200px;
   padding: 16px;
   margin-top: 100px;
   padding-top: 16px;
@@ -245,6 +245,7 @@ h2 {
   font-style: normal;
   font-weight: 600;
   line-height: 82.705px;
+  cursor: pointer;
 }
 .GenerateButton:hover {
   background-color: #f4f4f4;
@@ -276,7 +277,9 @@ h2 {
   font-style: normal;
   font-weight: 600;
   line-height: 82.705px;
-  text-decoration:none
+  text-decoration:none;
+  cursor: pointer;
+
 }
 .back-button-container:hover {
   background-color: #f4f4f4;
