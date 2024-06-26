@@ -97,20 +97,24 @@ transition: color 0.3s;
 .OutputTextBox {
   display: flex;
   width: 1076px;
-  height: 108px;
-  padding: 16;
+  height: 800px;
+  padding: 16px;
   margin-top: 100px;
   padding-top: 16px;
   padding-left: 16px;
   margin-left: 32px;
   align-items: center;
-  flex-shrink: 0;
   border-radius: 15px;
   border: 1.013px solid #f4f4f4;;
   background: #f4f4f4;;
   left: 32px;
   resize: none;
-
+  /* word-wrap: break-word; */
+  overflow-y: scroll;
+  white-space: pre;
+/* resize: none;
+  overflow: auto; */
+  overflow-x: scroll;
 }
 
 @keyframes slow-motion-shinycorner {
