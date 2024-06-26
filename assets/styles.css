@@ -37,7 +37,8 @@ body {
   border-radius: 15px;
   border: 1.013px solid #f4f4f4;;
   background: #f4f4f4;;
-  left: 32
+  left: 32;
+  resize: none;
 }
 
 .YourChoice {
@@ -107,7 +108,9 @@ transition: color 0.3s;
   border-radius: 15px;
   border: 1.013px solid #f4f4f4;;
   background: #f4f4f4;;
-  left: 32
+  left: 32px;
+  resize: none;
+
 }
 
 @keyframes slow-motion-shinycorner {

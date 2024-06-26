@@ -9,8 +9,8 @@ Ascii-Art-Web provides a user-friendly interface for generating ASCII art repres
 ## Authors
 
 Hamza Cheema [hcheema]
-Husain Hanoon []
-Zainab Alnabhan []
+Husain Hanoon [hhanoon]
+Zainab AlNabhan [znabhan]
 
 ## Usage
 
