@@ -96,7 +96,7 @@ transition: color 0.3s;
 
 .OutputTextBox {
   display: flex;
-  width: 1076px;
+  width: 800px;
   height: 200px;
   padding: 16px;
   margin-top: 100px;
@@ -216,7 +216,7 @@ h2 {
   background-color: #f4f4f4;
   border: 1px solid #ddd;
   border-radius: 4px;
-  width: 1193px;
+  width: 800px;
   height: 108px;
   padding: 10px;
   font-size: 16px;
@@ -231,13 +231,14 @@ h2 {
 
 .GenerateButton {
   display: flex;
-  width: 1076px;
+  width: 800px;
   height: 64px;
   padding: 20px 30px;
   justify-content: center;
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+  border: none;
   margin-top: 24px;
   background: #1BBAB4;
   font-family: Poppins;
@@ -262,7 +263,7 @@ h2 {
 }
 .back-button-container {
   display: flex;
-  width: 1076px;
+  width: 800px;
   height: 64px;
   left: 32px;
   padding: 20px 30px;
@@ -287,13 +288,8 @@ h2 {
   
 }
 
-@media (max-width: 768px) {
-  h1 {
-    color: #f4f4f4;
-    font-size: 40px;
-    font-family: Poppins;
-    font-weight: 10px;
-    line-height: 50px;
-    word-wrap: break-word;
-    }
+@media (max-width: 768px) and (min-width: 600px) {
+body {
+  display: 70%;
+}
 }
