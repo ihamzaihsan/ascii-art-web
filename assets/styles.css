@@ -4,20 +4,20 @@ body {
     height: auto; 
     position: relative; 
     z-index: 1;
+    justify-content: center;
   }
-
+@media (max-width: 1920px) and (min-width: 1025px) { /*************************************** Desktop view ***********************************/
 .YourText{
   margin-top: 60px;
   margin-bottom: 60px;
   width: 400px;
   height: 28px;
-  flex-shrink: 0;
   color: #f4f4f4;
   font-family: Poppins;
   font-weight: 800;
   font-size: 28px;
   font-style: normal;
-  line-height: 28px;
+  line-height: 35px;
   position: absolute;
   left: 32px;
   z-index: 1;
@@ -25,7 +25,7 @@ body {
 
 .TextBox {
   display: flex;
-  width: 1076px;
+  width: 800px;
   height: 108px;
   padding: 16;
   margin-top: 100px;
@@ -37,7 +37,7 @@ body {
   border-radius: 15px;
   border: 1.013px solid #f4f4f4;;
   background: #f4f4f4;;
-  left: 32;
+  left: 16;
   resize: none;
 }
 
@@ -45,7 +45,7 @@ body {
   margin-top: 255px;
   margin-bottom: 60px;
   width: 400px;
-  height: 28px;
+  height: 24px;
   flex-shrink: 0;
   color: #f4f4f4;
   font-family: Poppins;
@@ -191,7 +191,7 @@ transition: color 0.3s;
 
 h1 {
     color: #f4f4f4;
-    font-size: 120px;
+    font-size: 90px;
     font-family: Poppins;
     font-weight: 800;
     line-height: 82.70px;
@@ -243,6 +243,7 @@ h2 {
   background: #1BBAB4;
   font-family: Poppins;
   font-size: 24px;
+  text-decoration: none;
   font-style: normal;
   font-weight: 600;
   line-height: 82.705px;
@@ -261,6 +262,9 @@ h2 {
   z-index: 4;
   margin-top: 50px;
 }
+a {
+  text-decoration: none;
+}
 .back-button-container {
   display: flex;
   width: 800px;
@@ -272,6 +276,8 @@ h2 {
   gap: 10px;
   flex-shrink: 0;
   margin-top: 24px;
+  border: none;
+  text-decoration: none;
   background: #1BBAB4;
   font-family: Poppins;
   font-size: 24px;
@@ -287,9 +293,589 @@ h2 {
   color:#090E0E;
   
 }
+}
+@media (max-width: 1024px) and (min-width: 744px) {/*************************************** Tablet view ***********************************/
+  .YourText{
+    margin-top: 60px;
+    margin-bottom: 60px;
+    width: 400px;
+    height: 40px;
+    flex-shrink: 0;
+    color: #ffffff;
+    font-family: Poppins;
+    font-weight: 800;
+    font-size: 28px;
+    font-style: normal;
+    line-height: 28px;
+    position: absolute;
+    left: 24px;
+    z-index: 1;
+  }
+  
+  .TextBox {
+    display: flex;
+    width: 744px;
+    height: 108px;
+    padding: 16;
+    margin-top: 100px;
+    padding-top: 16px;
+    padding-left: 16px;
+    margin-left: 24px;
+    align-content: center;
+    flex-shrink: 0;
+    border-radius: 15px;
+    border: 1.013px solid #f4f4f4;;
+    background: #f4f4f4;;
+    left: 24;
+    resize: none;
+  }
+  
+  .YourChoice {
+    margin-top: 255px;
+    margin-bottom: 60px;
+    width: 400px;
+    height: 28px;
+    flex-shrink: 0;
+    color: #f4f4f4;
+    font-family: Poppins;
+    font-weight: 800;
+    font-size: 28px;
+    font-style: normal;
+    line-height: 28px;
+    position: absolute;
+    left: 24px;
+    z-index: 1;
+  }
+  
+  .ArtStyleOptions {
+  color: rgba(240, 255, 255, 0.60);
+  font-family: Poppins;
+  display: flex;
+  gap: 20px;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 44;
+  margin-top: 44px;
+  margin-left: 24px;
+  transition: color 0.3s;
+  }
+  .ArtStyleLink:hover {
+    color: #f4f4f4;
+  }
+  .margin-left-32 {
+    margin-left: 32px;
+  }
+  body {
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .ArtStyleLink {
+    color: rgba(240, 255, 255, 0.60);
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32.705px;
+    margin-left: 24;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    transition: color 0.3s;
+    z-index: 10;
+  }
+  
+  .OutputTextBox {
+    display: flex;
+    width: 744px;
+    height: 200px;
+    padding: 16px;
+    margin-top: 100px;
+    padding-top: 16px;
+    padding-left: 16px;
+    margin-left: 24px;
+    align-items: center;
+    border-radius: 15px;
+    border: 1.013px solid #f4f4f4;;
+    background: #f4f4f4;;
+    left: 32px;
+    resize: none;
+    /* word-wrap: break-word; */
+    overflow-y: scroll;
+    white-space: pre;
+  /* resize: none;
+    overflow: auto; */
+    overflow-x: scroll;
+  }
+  a {
+    text-decoration: none;
+  }
+  
+  @keyframes slow-motion-shinycorner {
+    0% {
+        transform: scale(1);
+        background: #1CCFC9;
+        left: 1541px;
+        top: -106px;
+    }
+    50% {
+        transform: scale(1.7); /* Slightly increase size */
+        background: #1CCFC9; /* Slight color change */
+        left: 1541px;
+        top: -106px;
+    }
+    100% {
+        transform: scale(1);
+        background: #1CCFC9;
+        left: 1541px;
+        top: -106px;
+    }
+  }
+  @keyframes slow-motion-red {
+    0% {
+        transform: scale(1);
+        background: #c34646;
+        left: 1541px;
+        top: -106px;
+    }
+    50% {
+        transform: scale(1.7); /* Slightly increase size */
+        background: #c34646; /* Slight color change */
+        left: 1541px;
+        top: -106px;
+    }
+    100% {
+        transform: scale(1);
+        background: #c34646;
+        left: 1541px;
+        top: -106px;
+    }
+  }
+  .selected {
+    color: #1CBCB6;
+  }
+  .Shinycorner {
+    width: 270px;
+    height: 270px;
+    flex-shrink: 0;
+    border-radius: 270px;
+    background: #1CCFC9;
+    filter: blur(120.05px);
+    position: sticky;
+    z-index: -1;
+    left: 1541px;
+    top: -106px;
+    animation: slow-motion-shinycorner 5s infinite; /* 5s duration, infinite loop */
+    transition: background 0.3s ease-in-out; /* Smooth background transition */
+  }
+  .errorred {
+    width: 270px;
+    height: 270px;
+    flex-shrink: 0;
+    border-radius: 270px;
+    background: #c34646;
+    filter: blur(120.05px);
+    position: sticky;
+    z-index: -1;
+    left: 1541px;
+    top: -106px;
+    animation: slow-motion-red 5s infinite; /* 5s duration, infinite loop */
+    transition: background 0.3s ease-in-out; /* Smooth background transition */
+  }
+  
+  h1 {
+      color: #f4f4f4;
+      font-size: 80px;
+      font-family: Poppins;
+      font-weight: 800;
+      line-height: 82.70px;
+      position: absolute;
+      align-content: center;
+      left: 24px;
+      top: 1px;
+      z-index: 1;
+  }
+  h2 {
+    color: #f4f4f4;
+    font-size: 60px;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: 82.70px;
+    position: absolute;
+    left: 24px;
+    top: 150px;
+    z-index: 1;
+  }
+  
+  .text-box {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 800px;
+    height: 108px;
+    padding: 10px;
+    font-size: 16px;
+    color: #000;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 13.705px;
+    z-index: 1;
+  }
+  
+  .GenerateButton {
+    display: flex;
+    width: 744px;
+    height: 64px;
+    padding: 20px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border: none;
+    margin-top: 24px;
+    background: #1BBAB4;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 82.705px;
+    cursor: pointer;
+  }
+  .GenerateButton:hover {
+    background-color: #f4f4f4;
+  }
+  
+  .DarkGenerationBox {
+    width: auto;
+    height: 100px;
+    border-top: 1px solid #f4f4f4;;
+    background: rgba(0, 0, 0, 0.10);
+    backdrop-filter: blur(10.199999809265137px);
+    z-index: 4;
+    margin-top: 50px;
+  }
+  .back-button-container {
+    display: flex;
+    width: 800px;
+    height: 64px;
+    left: 24px;
+    text-decoration: none;
+    padding: 20px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    margin-top: 24px;
+    background: #1BBAB4;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 82.705px;
+    text-decoration:none;
+    cursor: pointer;
+  
+  }
+  .back-button-container:hover {
+    background-color: #f4f4f4;
+    color:#090E0E;
+    
+  }
+}
 
-@media (max-width: 768px) and (min-width: 600px) {
-body {
-  display: 70%;
+@media (max-width: 743px) and (min-width: 320px) {/*************************************** mobile view ***********************************/
+  .YourText{
+    margin-top: 32px;
+    margin-bottom: 32px;
+    width: 400px;
+    height: 40px;
+    flex-shrink: 0;
+    color: #f4f4f4;
+    font-family: Poppins;
+    font-weight: 800;
+    font-size: 17px;
+    font-style: normal;
+    line-height: 28px;
+    position: absolute;
+    left: 16px;
+    z-index: 1;
+  }
+  
+  .TextBox {
+    display: flex;
+    width: 320px;
+    height: 108px;
+    padding: 16;
+    margin-top: 100px;
+    padding-top: 16px;
+    padding-left: 16px;
+    margin-left: 24px;
+    align-content: center;
+    flex-shrink: 0;
+    border-radius: 15px;
+    border: 1.013px solid #f4f4f4;;
+    background: #f4f4f4;;
+    left: 24;
+    resize: none;
+  }
+  
+  .YourChoice {
+    margin-top: 255px;
+    margin-bottom: 60px;
+    width: 400px;
+    height: 28px;
+    flex-shrink: 0;
+    color: #f4f4f4;
+    font-family: Poppins;
+    font-weight: 800;
+    font-size: 17px;
+    font-style: normal;
+    line-height: 28px;
+    position: absolute;
+    left: 24px;
+    z-index: 1;
+  }
+  
+  .ArtStyleOptions {
+  color: rgba(240, 255, 255, 0.60);
+  font-family: Poppins;
+  display: flex;
+  gap: 20px;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 44;
+  text-decoration:none;
+  margin-top: 44px;
+  margin-left: 24px;
+  transition: color 0.3s;
+  }
+  .ArtStyleLink:hover {
+    color: #f4f4f4;
+  }
+  .margin-left-32 {
+    margin-left: 16px;
+  }
+  body {
+    justify-content: center;
+  }
+  
+  .ArtStyleLink {
+    color: rgba(240, 255, 255, 0.60);
+    font-family: Poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32.705px;
+    text-decoration:none;
+    margin-left: 24;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    transition: color 0.3s;
+    z-index: 10;
+  }
+  a {
+    text-decoration: none;
+  }
+  .OutputTextBox {
+    display: flex;
+    width: 320px;
+    height: 200px;
+    padding: 16px;
+    margin-top: 100px;
+    padding-top: 16px;
+    padding-left: 16px;
+    margin-left: 24px;
+    align-items: center;
+    border-radius: 15px;
+    border: 1.013px solid #f4f4f4;;
+    background: #f4f4f4;;
+    left: 16px;
+    resize: none;
+    /* word-wrap: break-word; */
+    overflow-y: scroll;
+    white-space: pre;
+  /* resize: none;
+    overflow: auto; */
+    overflow-x: scroll;
+  }
+  
+  @keyframes slow-motion-shinycorner {
+    0% {
+        transform: scale(1);
+        background: #1CCFC9;
+        left: 1541px;
+        top: -106px;
+    }
+    50% {
+        transform: scale(1.7); /* Slightly increase size */
+        background: #1CCFC9; /* Slight color change */
+        left: 1541px;
+        top: -106px;
+    }
+    100% {
+        transform: scale(1);
+        background: #1CCFC9;
+        left: 1541px;
+        top: -106px;
+    }
+  }
+  @keyframes slow-motion-red {
+    0% {
+        transform: scale(1);
+        background: #c34646;
+        left: 1541px;
+        top: -106px;
+    }
+    50% {
+        transform: scale(1.7); /* Slightly increase size */
+        background: #c34646; /* Slight color change */
+        left: 1541px;
+        top: -106px;
+    }
+    100% {
+        transform: scale(1);
+        background: #c34646;
+        left: 1541px;
+        top: -106px;
+    }
+  }
+  .selected {
+    color: #1CBCB6;
+  }
+  .Shinycorner {
+    width: 150px;
+    height: 150px;
+    flex-shrink: 0;
+    border-radius: 150px;
+    background: #1CCFC9;
+    filter: blur(120.05px);
+    position: sticky;
+    z-index: -1;
+    left: 1541px;
+    top: -106px;
+    animation: slow-motion-shinycorner 5s infinite; /* 5s duration, infinite loop */
+    transition: background 0.3s ease-in-out; /* Smooth background transition */
+  }
+  .errorred {
+    width: 150px;
+    height: 150px;
+    flex-shrink: 0;
+    border-radius: 150px;
+    background: #c34646;
+    filter: blur(120.05px);
+    position: sticky;
+    z-index: -1;
+    left: 1541px;
+    top: -106px;
+    animation: slow-motion-red 5s infinite; /* 5s duration, infinite loop */
+    transition: background 0.3s ease-in-out; /* Smooth background transition */
+  }
+  
+  h1 {
+      color: #f4f4f4;
+      font-size: 30px;
+      font-family: Poppins;
+      font-weight: 800;
+      line-height: 82.70px;
+      position: absolute;
+      align-content: center;
+      left: 24px;
+      top: 1px;
+      z-index: 1;
+  }
+  h2 {
+    color: #f4f4f4;
+    font-size: 25px;
+    font-family: Poppins;
+    font-weight: 700;
+    line-height: 82.70px;
+    position: absolute;
+    left: 24px;
+    top: 150px;
+    z-index: 1;
+  }
+  
+  .text-box {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 320px;
+    height: 50px;
+    padding: 10px;
+    font-size: 16px;
+    color: #000;
+    font-family: Poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 13.705px;
+    z-index: 1;
+  }
+  
+  .GenerateButton {
+    display: flex;
+    width: 320px;
+    height: 44px;
+    padding: 20px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border: none;
+    margin-top: 24px;
+    background: #1BBAB4;
+    font-family: Poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 82.705px;
+    cursor: pointer;
+    text-decoration: none;
+
+  }
+  .GenerateButton:hover {
+    background-color: #f4f4f4;
+  }
+  
+  .DarkGenerationBox {
+    width: auto;
+    height: 70px;
+    border-top: 1px solid #f4f4f4;;
+    background: rgba(0, 0, 0, 0.10);
+    backdrop-filter: blur(10.199999809265137px);
+    z-index: 4;
+    margin-top: 32px;
+  }
+  .back-button-container {
+    display: flex;
+    width: 320px;
+    height: 44px;
+    left: 16px;
+    right: 16px;
+    padding: 20px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    margin-top: 24px;
+    background: #1BBAB4;
+    font-family: Poppins;
+    font-size: 15px;
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 82.705px;
+    text-decoration:none;
+    cursor: pointer;
+  
+  }
+  .back-button-container:hover {
+    background-color: #f4f4f4;
+    color:#090E0E;
+  }
 }
-}
+
