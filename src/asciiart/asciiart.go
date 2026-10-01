@@ -39,6 +39,17 @@ func New(files fs.FS) (*Generator, error) {
 				return nil, fmt.Errorf("%s banner: missing separator for character %d", style, i+32)
 			}
 			copy(characters[i][:], lines[i*9+1:i*9+9])
+			width := len(characters[i][0])
+			for _, row := range characters[i] {
+				if width == 0 || len(row) != width {
+					return nil, fmt.Errorf("%s banner: inconsistent width for character %d", style, i+32)
+				}
+				for _, c := range row {
+					if c < 32 || c > 126 {
+						return nil, fmt.Errorf("%s banner: non-ASCII glyph for character %d", style, i+32)
+					}
+				}
+			}
 		}
 		g.banners[style] = characters
 	}
