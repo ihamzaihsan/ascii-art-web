@@ -1,53 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="http://localhost:8080/assets/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="icon" href="http://localhost:8080/assets/favicon.png" type="image/icon type">
-    <title>Ascii Art</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Turn text into ASCII art with three classic banner styles.">
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="icon" href="/assets/favicon.png" type="image/png">
+    <title>ASCII Art Generator</title>
 </head>
 <body>
-    <div class="Shinycorner"></div>
-    <div class:="smallbluebox"></div>
-    <h1> Ascii Art Generator </h1>
-    <div class="section">
-    <div class="YourText">Your Text</div>
-    <div class="YourChoice">Your Chosen Art Style</div>
-<form action="/ascii-art" method="post">
-    <textarea class="TextBox" name="input-text" placeholder="write your text here..." maxlength="100"></textarea>
-    <div class="ArtStyleOptions">
-        <a href="#" class="ArtStyleLink selected" id="standard">Standard</a>
-        <a href="#" class="ArtStyleLink" id="shadow">Shadow</a>
-        <a href="#" class="ArtStyleLink" id="thinkertoy">Thinkertoy</a>
-    </div>
-    <input type="hidden" name="banner" id="artStyleInput">
-    <button type="ascii-art" class="GenerateButton margin-left-32">Rock 'n' Roll</button>
-</form>
-</div>
-<script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const artStyleLinks = document.querySelectorAll('.ArtStyleLink');
-
-        const artStyleInputs = document.getElementById('artStyleInput');
-        artStyleInputs.value = "standard"
-    
-        artStyleLinks.forEach(link => {
-            link.addEventListener('click', function(event) {
-                event.preventDefault();
-    
-                // Remove 'selected' class from all links
-                artStyleLinks.forEach(link => link.classList.remove('selected'));
-    
-                // Add 'selected' class to the clicked link
-                this.classList.add('selected');
-    
-                // Update hidden input value
-                artStyleInput.value = this.id;
-            });
-        });
-    });
-    </script>
+<main>
+    <header><p class="eyebrow">TEXT → ART</p><h1>ASCII Art Generator</h1>
+    <p>Give your words a little character. Choose a style and make something worth copying.</p></header>
+    <form action="/ascii-art" method="post" class="panel">
+        <label for="input-text">Your text</label>
+        <p id="input-help" class="hint">Up to 100 characters. Use English letters, numbers, spaces, punctuation, and line breaks.</p>
+        <textarea id="input-text" name="input-text" rows="4" maxlength="100" required aria-describedby="input-help" placeholder="Hello, world!"></textarea>
+        <fieldset>
+            <legend>Banner style</legend>
+            <div class="styles">
+                <label><input type="radio" name="banner" value="standard" checked> Standard</label>
+                <label><input type="radio" name="banner" value="shadow"> Shadow</label>
+                <label><input type="radio" name="banner" value="thinkertoy"> Thinkertoy</label>
+            </div>
+        </fieldset>
+        <button type="submit">Generate ASCII art</button>
+    </form>
+    <footer>Three classic styles. Plain text output. No account needed.</footer>
+</main>
 </body>
 </html>

@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="http://localhost:8080/assets/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="icon" href="http://localhost:8080/assets/favicon.png" type="image/icon type">
-    <title>Ascii Art</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="icon" href="/assets/favicon.png" type="image/png">
+    <title>Your ASCII Art</title>
 </head>
 <body>
-    <div class="Shinycorner"></div>
-    <div class="smallbluebox"></div>
-    <h1> Ascii Art Result </h1>
-
-    <!-- Output Text Box -->
-    <div class="output-section">
-        <textarea id="ascii-result" class="OutputTextBox" name="ascii-output" rows="10" readonly>{{.Result}}</textarea>
-    </div>
-    <a href="/"> <button  class="back-button-container margin-left-32"> Rock it again</button></a>
+<main>
+    <header><p class="eyebrow">TEXT → ART</p><h1>Your ASCII art</h1>
+    <p>Rendered with the <strong>{{.Banner}}</strong> banner.</p></header>
+    <section class="panel" aria-label="Generated result">
+        <label for="ascii-result">Select and copy your artwork</label>
+        <p id="result-help" class="hint">Keep a monospace font when pasting to preserve alignment. Scroll sideways for wider artwork.</p>
+        <textarea id="ascii-result" class="output" rows="12" readonly wrap="off" spellcheck="false" aria-describedby="result-help">{{.Result}}</textarea>
+        <details><summary>Original text</summary><pre>{{.Input}}</pre></details>
+        <a class="button" href="/">Generate another</a>
+    </section>
+</main>
 </body>
 </html>

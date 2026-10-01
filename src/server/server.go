@@ -1,121 +1,125 @@
+// Package server implements the HTML interface and HTTP input boundary.
 package server
 
 import (
-	"html/template"
-	"net/http"
 	"ascii/src/asciiart"
-	"strings"
+	"bytes"
+	"errors"
+	"fmt"
+	"html/template"
+	"io/fs"
+	"log"
+	"mime"
+	"net/http"
 )
 
-// Struct to hold the error data
-type ErrorPageData struct {
-	Code     string
-	ErrorMsg string
+const maxBodyBytes = 4096
+
+type pageData struct {
+	Input, Banner, Result string
+	Code                  int
+	ErrorMsg              string
 }
 
-// Struct to hold the result data
-type ResultPageData struct {
-	Input  string
-	Banner string
-	Result string
+type app struct {
+	templates *template.Template
+	generator *asciiart.Generator
 }
 
-// Function to render the error page
-func errHandler(w http.ResponseWriter, r *http.Request, err *ErrorPageData) {
-	errorTemp := template.Must(template.ParseFiles("templates/error.html"))
-	errorTemp.Execute(w, err)
-
-}
-
-// Function to render the main page
-func MainHandler(w http.ResponseWriter, r *http.Request) {
-	//Validating the request path
-	if r.URL.Path != "/" {
-		err := ErrorPageData{Code: "404", ErrorMsg: "PAGE NOT FOUND"}
-		w.WriteHeader(http.StatusNotFound)
-		errHandler(w, r, &err)
-		return
-	}
-	// Validating the request method
-	if r.Method != "GET" {
-		err := ErrorPageData{Code: "405", ErrorMsg: "METHOD NOT ALLOWED"}
-		w.WriteHeader(http.StatusMethodNotAllowed)
-		errHandler(w, r, &err)
-		return
-	}
-	// Validating the parsing of the main page
-	main, err := template.ParseFiles("templates/index.html")
+// NewHandler validates bundled resources before accepting requests.
+func NewHandler(files fs.FS) (http.Handler, error) {
+	banners, err := fs.Sub(files, "banners")
 	if err != nil {
-		err := ErrorPageData{Code: "500", ErrorMsg: "INTERNAL SERVER ERROR"}
-		w.WriteHeader(http.StatusInternalServerError)
-		errHandler(w, r, &err)
-		return
+		return nil, err
 	}
-
-	mainTemp := template.Must(main, nil)
-	mainTemp.Execute(w, nil)
-}
-
-// Function to render the result page
-func ResultHandler(w http.ResponseWriter, r *http.Request) {
-	// Validating the paesing of the form
-	if err := r.ParseForm(); err != nil {
-		err := ErrorPageData{Code: "500", ErrorMsg: "INTERNAL SERVER ERROR"}
-		w.WriteHeader(http.StatusInternalServerError)
-		errHandler(w, r, &err)
-		return
+	generator, err := asciiart.New(banners)
+	if err != nil {
+		return nil, err
 	}
-	// Validation for the input
-	input := r.PostFormValue("input-text")
-	inputValidation := strings.ReplaceAll(input, "\r\n", "")
-	if inputValidation == "" {
-		err := ErrorPageData{Code: "400", ErrorMsg: "INVALID INPUT"}
-		w.WriteHeader(http.StatusBadRequest)
-		errHandler(w, r, &err)
-		return
+	templates, err := template.ParseFS(files, "templates/*.html")
+	if err != nil {
+		return nil, fmt.Errorf("parse templates: %w", err)
 	}
-	/*if strings.TrimSpace(inputValidation) == "" {
-		err := ErrorPageData{Code: "400", ErrorMsg: "INVALID INPUT"}
-		w.WriteHeader(http.StatusBadRequest)
-		errHandler(w, r, &err)
-		return
-	}*/
-
-	for _, letter := range inputValidation {
-		if letter < 32 || letter > 126 {
-			err := ErrorPageData{Code: "400", ErrorMsg: "INVALID INPUT"}
-			w.WriteHeader(http.StatusBadRequest)
-			errHandler(w, r, &err)
-			return
+	for _, name := range []string{"index.html", "ascii-art.html", "error.html"} {
+		if templates.Lookup(name) == nil {
+			return nil, fmt.Errorf("missing template %s", name)
 		}
 	}
-	// Validation for the banner
-	banner := r.PostFormValue("banner")
-	if banner != "standard" && banner != "shadow" && banner != "thinkertoy" {
-		err := ErrorPageData{Code: "400", ErrorMsg: "BANNER NOT FOUND"}
-		w.WriteHeader(http.StatusNotFound)
-		errHandler(w, r, &err)
-		return
-
-	}
-	//Validation for asciiart functions
-	ascii, err := asciiart.AsciiArt(input, banner)
+	assets, err := fs.Sub(files, "assets")
 	if err != nil {
-		err := ErrorPageData{Code: "500", ErrorMsg: "INTERNAL SERVER ERROR"}
-		w.WriteHeader(http.StatusInternalServerError)
-		errHandler(w, r, &err)
+		return nil, err
+	}
+	a := &app{templates: templates, generator: generator}
+	mux := http.NewServeMux()
+	mux.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.FS(assets))))
+	mux.HandleFunc("/", a.home)
+	mux.HandleFunc("/ascii-art", a.result)
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("X-Content-Type-Options", "nosniff")
+		w.Header().Set("Content-Security-Policy", "default-src 'self'; style-src 'self'; img-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'")
+		mux.ServeHTTP(w, r)
+	}), nil
+}
+
+// Buffer templates so rendering failures cannot send partial successful pages.
+func (a *app) render(w http.ResponseWriter, status int, name string, data pageData) {
+	var body bytes.Buffer
+	if err := a.templates.ExecuteTemplate(&body, name, data); err != nil {
+		log.Printf("render %s: %v", name, err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
-	resultTemp, err := template.ParseFiles("templates/ascii-art.html")
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	w.WriteHeader(status)
+	if _, err := body.WriteTo(w); err != nil {
+		log.Printf("write response: %v", err)
+	}
+}
+
+func (a *app) fail(w http.ResponseWriter, code int, message string) {
+	a.render(w, code, "error.html", pageData{Code: code, ErrorMsg: message})
+}
+
+func (a *app) home(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		a.fail(w, http.StatusNotFound, "This page does not exist.")
+		return
+	}
+	if r.Method != http.MethodGet {
+		w.Header().Set("Allow", "GET")
+		a.fail(w, http.StatusMethodNotAllowed, "Use GET to open the generator.")
+		return
+	}
+	a.render(w, http.StatusOK, "index.html", pageData{})
+}
+
+func (a *app) result(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		w.Header().Set("Allow", "POST")
+		a.fail(w, http.StatusMethodNotAllowed, "Submit the form to generate ASCII art.")
+		return
+	}
+	mediaType, _, err := mime.ParseMediaType(r.Header.Get("Content-Type"))
+	if err != nil || mediaType != "application/x-www-form-urlencoded" {
+		a.fail(w, http.StatusUnsupportedMediaType, "Submit a URL-encoded form.")
+		return
+	}
+	r.Body = http.MaxBytesReader(w, r.Body, maxBodyBytes)
+	if err := r.ParseForm(); err != nil {
+		var tooLarge *http.MaxBytesError
+		if errors.As(err, &tooLarge) {
+			a.fail(w, http.StatusRequestEntityTooLarge, "The form exceeds 4 KiB.")
+		} else {
+			a.fail(w, http.StatusBadRequest, "The form could not be read.")
+		}
+		return
+	}
+	input, banner := r.PostForm.Get("input-text"), r.PostForm.Get("banner")
+	result, err := a.generator.Render(input, banner)
 	if err != nil {
-		err := ErrorPageData{Code: "500", ErrorMsg: "INTERNAL SERVER ERROR"}
-		w.WriteHeader(http.StatusInternalServerError)
-		errHandler(w, r, &err)
+		a.fail(w, http.StatusBadRequest, err.Error())
 		return
 	}
-
-	output := ResultPageData{Input: input, Banner: banner, Result: ascii}
-
-	resultTemp.Execute(w, output)
-
+	w.Header().Set("Cache-Control", "no-store")
+	a.render(w, http.StatusOK, "ascii-art.html", pageData{Input: input, Banner: banner, Result: result})
 }
