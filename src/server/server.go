@@ -3,6 +3,7 @@ package server
 
 import (
 	"ascii/src/asciiart"
+	"ascii/src/imageart"
 	"bytes"
 	"errors"
 	"fmt"
@@ -19,6 +20,10 @@ type pageData struct {
 	Input, Banner, Result string
 	Code                  int
 	ErrorMsg              string
+	Image, ImageName      string
+	Options               imageart.Options
+	Controls              []imageControl
+	Rows                  int
 }
 
 type app struct {
@@ -40,7 +45,7 @@ func NewHandler(files fs.FS) (http.Handler, error) {
 	if err != nil {
 		return nil, fmt.Errorf("parse templates: %w", err)
 	}
-	for _, name := range []string{"index.html", "ascii-art.html", "error.html"} {
+	for _, name := range []string{"index.html", "ascii-art.html", "image-ascii.html", "error.html"} {
 		if templates.Lookup(name) == nil {
 			return nil, fmt.Errorf("missing template %s", name)
 		}
@@ -49,14 +54,21 @@ func NewHandler(files fs.FS) (http.Handler, error) {
 	if err != nil {
 		return nil, err
 	}
+	for _, name := range []string{"styles.css", "image-preview.js", "image-controls.js", "favicon.png"} {
+		if _, err := fs.ReadFile(assets, name); err != nil {
+			return nil, fmt.Errorf("load asset %s: %w", name, err)
+		}
+	}
 	a := &app{templates: templates, generator: generator}
 	mux := http.NewServeMux()
 	mux.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.FS(assets))))
 	mux.HandleFunc("/", a.home)
 	mux.HandleFunc("/ascii-art", a.result)
+	mux.HandleFunc("/image-ascii", a.image)
+	mux.HandleFunc("/export", a.export)
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("X-Content-Type-Options", "nosniff")
-		w.Header().Set("Content-Security-Policy", "default-src 'self'; style-src 'self'; img-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'")
+		w.Header().Set("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; form-action 'self'; frame-ancestors 'none'; base-uri 'none'")
 		mux.ServeHTTP(w, r)
 	}), nil
 }

@@ -54,6 +54,29 @@ details { margin: 1rem 0; }
 summary { cursor: pointer; }
 pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 footer { font-size: .85rem; margin-top: 1.5rem; }
+nav { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+nav a { color: #69e0d9; text-underline-offset: .3em; }
+nav a[aria-current] { color: #fff; font-weight: 700; }
+.actions { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1.5rem; }
+button:disabled { opacity: .45; cursor: not-allowed; }
+.image-preview { text-align: center; border-radius: .5rem; background: #f4f4f4; color: #101b1b; padding: .5rem; }
+.image-preview img { max-width: 100%; max-height: 15rem; object-fit: contain; }
+.image-preview p { margin: 0; overflow-wrap: anywhere; }
+.drop-zone { display: block; text-align: center; border: 2px dashed #8fa9a7; border-radius: .75rem; padding: 1.25rem; margin-top: .75rem; cursor: pointer; }
+.drop-zone:focus-within { border-color: #69e0d9; background: #173b39; }
+.drop-zone input { display: block; max-width: 100%; margin: .75rem auto 0; font: inherit; }
+.image-controls { display: grid; grid-template-columns: minmax(10rem, auto) minmax(0, 1fr) 6rem; gap: .75rem; align-items: center; margin: 1.5rem 0; }
+.image-controls label { font-size: .9rem; font-weight: 400; }
+.image-controls input[type="range"] { width: 100%; min-width: 0; margin: 0; accent-color: #69e0d9; cursor: pointer; }
+.image-controls input[type="checkbox"] { accent-color: #69e0d9; }
+.image-controls .control-value { font-size: .85rem; text-align: right; font-variant-numeric: tabular-nums; }
+.image-controls select { grid-column: span 2; width: 100%; padding: .6rem; border: 1px solid #65807e; border-radius: .4rem; background: #202d2c; color: #fff; font: inherit; }
+.image-output { font: 12px/14px "Courier New", monospace; }
+hr { border: 0; border-top: 1px solid #37504e; margin: 2rem 0; }
+@media (max-width: 40rem) {
+    .image-controls { grid-template-columns: minmax(0, 1fr) 6rem; gap: .4rem .75rem; }
+    .image-controls label { grid-column: 1 / -1; margin-top: .5rem; }
+}
 @media (max-width: 30rem) {
     main { padding-top: 1.5rem; }
     button, .button { width: 100%; text-align: center; }

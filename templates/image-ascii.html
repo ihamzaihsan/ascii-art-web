@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Upload an image to convert it to ASCII with Go and download TXT or PNG.">
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="icon" href="/assets/favicon.png" type="image/png">
+    <script src="/assets/image-preview.js" defer></script>
+    <script src="/assets/image-controls.js" defer></script>
+    <title>Image to ASCII</title>
+</head>
+<body>
+<main>
+    <nav aria-label="Generators"><a href="/">Text to ASCII</a><a href="/image-ascii" aria-current="page">Image to ASCII</a></nav>
+    <header><p class="eyebrow">IMAGE → ART</p><h1>Image to ASCII</h1>
+        <p>Upload a picture and fine-tune its characters. Conversion and downloads are powered by Go.</p></header>
+    <section class="panel" aria-label="Image converter">
+        <div id="image-preview" class="image-preview" aria-live="polite">
+            {{if .Image}}<img src="data:image/png;base64,{{.Image}}" alt="Uploaded image preview"><p>{{.ImageName}}</p>{{else}}<p>No image</p>{{end}}
+        </div>
+        <form id="image-form" action="/image-ascii" method="post" enctype="multipart/form-data">
+            {{if .Image}}<input type="hidden" name="image-data" value="{{.Image}}"><input type="hidden" name="image-name" value="{{.ImageName}}">{{end}}
+            <label class="drop-zone" for="image-file">Choose an image{{if .Image}} to replace the current picture{{end}}
+                <input id="image-file" name="image-file" type="file" accept="image/png,image/jpeg,image/gif" {{if not .Image}}required{{end}} aria-describedby="upload-help">
+            </label>
+            <p id="upload-help" class="hint">PNG, JPEG, or GIF · up to 10 MiB and 24 million pixels. GIF uses its first frame. Images are sent to the server for conversion and are not saved.</p>
+            <fieldset class="styles">
+                <legend>Optional filters</legend>
+                <label><input name="threshold-enabled" type="checkbox" {{if .Options.Threshold}}checked{{end}}> Thresholding</label>
+                <label><input name="sharpness-enabled" type="checkbox" {{if .Options.Sharpness}}checked{{end}}> Sharpness</label>
+                <label><input name="edges-enabled" type="checkbox" {{if .Options.Edges}}checked{{end}}> Edge Detection</label>
+            </fieldset>
+            <div id="image-controls" class="image-controls">
+                {{range .Controls}}
+                <label for="{{.Name}}">{{.Label}}</label>
+                <input id="{{.Name}}" name="{{.Name}}" type="range" min="{{.Min}}" max="{{.Max}}" step="{{.Step}}" value="{{.Value}}" aria-valuetext="{{.Value}} {{.Unit}}" data-unit="{{.Unit}}">
+                <output for="{{.Name}}" class="control-value" aria-live="off">{{.Value}} {{.Unit}}</output>
+                {{end}}
+                <label for="gradient">ASCII gradient</label>
+                <select id="gradient" name="gradient">
+                    <option value="normal" {{if eq .Options.Gradient "normal"}}selected{{end}}>Normal</option>
+                    <option value="detailed" {{if eq .Options.Gradient "detailed"}}selected{{end}}>Detailed</option>
+                    <option value="blocks" {{if eq .Options.Gradient "blocks"}}selected{{end}}>Blocks</option>
+                    <option value="binary" {{if eq .Options.Gradient "binary"}}selected{{end}}>Binary</option>
+                    <option value="reversed" {{if eq .Options.Gradient "reversed"}}selected{{end}}>Reversed</option>
+                </select>
+                <label for="quality">Quality Enhancements</label>
+                <select id="quality" name="quality">
+                    <option value="none" {{if eq .Options.Quality "none"}}selected{{end}}>None</option>
+                    <option value="smooth" {{if eq .Options.Quality "smooth"}}selected{{end}}>Smooth sampling</option>
+                    <option value="normalize" {{if eq .Options.Quality "normalize"}}selected{{end}}>Auto contrast</option>
+                    <option value="both" {{if eq .Options.Quality "both"}}selected{{end}}>Smooth sampling + auto contrast</option>
+                </select>
+            </div>
+            <p id="settings-help" class="hint">Move the sliders and apply to update the preview. Filter strengths are used when their checkbox is checked. Space density adds light-tone spaces. Transparent frame adds clear PNG padding.</p>
+            <div class="actions"><button type="submit">{{if .Image}}Apply settings{{else}}Convert image{{end}}</button><a class="button" href="/image-ascii">Reset</a></div>
+        </form>
+        {{if .Image}}
+        <hr>
+        <label for="ascii-result">ASCII preview</label>
+        <p id="update-status" class="hint" role="status"></p>
+        <p id="dimensions" class="hint">{{index .Options.Values "characters"}} columns × {{.Rows}} rows. Select the preview, then press Ctrl+A and Ctrl+C (Command on Mac) to copy.</p>
+        <textarea id="ascii-result" class="output image-output" rows="16" readonly wrap="off" spellcheck="false" aria-describedby="dimensions">{{.Result}}</textarea>
+        <form id="image-export" action="/export" method="post" class="actions">
+            <input type="hidden" name="art" value="{{.Result}}">
+            <input type="hidden" name="frame" value="{{index .Options.Values "frame"}}">
+            <button type="submit" name="format" value="txt">TXT</button>
+            <button type="submit" name="format" value="png">PNG</button>
+        </form>
+        {{else}}<p class="hint">Upload an image to begin. Tall images are limited to 300 rows.</p>{{end}}
+    </section>
+</main>
+</body>
+</html>

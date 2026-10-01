@@ -9,14 +9,21 @@
 </head>
 <body>
 <main>
+    <nav aria-label="Generators"><a href="/">Text to ASCII</a><a href="/image-ascii">Image to ASCII</a></nav>
     <header><p class="eyebrow">TEXT → ART</p><h1>Your ASCII art</h1>
     <p>Rendered with the <strong>{{.Banner}}</strong> banner.</p></header>
     <section class="panel" aria-label="Generated result">
         <label for="ascii-result">Select and copy your artwork</label>
-        <p id="result-help" class="hint">Keep a monospace font when pasting to preserve alignment. Scroll sideways for wider artwork.</p>
-        <textarea id="ascii-result" class="output" rows="12" readonly wrap="off" spellcheck="false" aria-describedby="result-help">{{.Result}}</textarea>
+        <p id="result-help" class="hint">Select this preview, then press Ctrl+A and Ctrl+C (Command on Mac) to copy. Keep a monospace font when pasting. Scroll sideways for wider artwork.</p>
+        <textarea id="ascii-result" class="output" rows="12" readonly wrap="off" spellcheck="false" aria-describedby="result-help">
+{{.Result}}</textarea>
         <details><summary>Original text</summary><pre>{{.Input}}</pre></details>
-        <a class="button" href="/">Generate another</a>
+        <form action="/export" method="post" class="actions">
+            <input type="hidden" name="art" value="{{.Result}}">
+            <button type="submit" name="format" value="txt">TXT</button>
+            <button type="submit" name="format" value="png">PNG</button>
+            <a class="button" href="/">Reset</a>
+        </form>
     </section>
 </main>
 </body>
