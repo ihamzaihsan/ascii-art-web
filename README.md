@@ -1,4 +1,4 @@
-# ASCII Art Web
+# ASCII Studio: Text & Image Art Generator
 
 A Go web application that converts text and images into ASCII artwork, with
 adjustable image filters and TXT/PNG downloads. Built with the Go standard
@@ -46,15 +46,15 @@ go run . -addr 127.0.0.1:9090
 ### Standalone build
 
 ```sh
-go build -o ascii-art-web .
-./ascii-art-web
+go build -o ascii-studio .
+./ascii-studio
 ```
 
 On Windows:
 
 ```powershell
-go build -o ascii-art-web.exe .
-.\ascii-art-web.exe
+go build -o ascii-studio.exe .
+.\ascii-studio.exe
 ```
 
 Rebuild after changing templates, banners, or assets. The server binds to
