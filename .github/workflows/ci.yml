@@ -25,4 +25,4 @@ jobs:
       - run: node --check assets/image-preview.js
       - run: node --check assets/image-controls.js
       - run: go vet ./...
-      - run: go build -o ascii-art-web .
+      - run: go build -o ascii-studio .
